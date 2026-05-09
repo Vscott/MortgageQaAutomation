@@ -1,18 +1,20 @@
 ﻿using FluentAssertions;
+using MortgageQaAutomation.Assertions;
 using MortgageQaAutomation.Clients;
 using MortgageQaAutomation.Models;
 using System.Net;
 using System.Net.Http.Json;
 using Xunit;
+using MortgageQaAutomation.Assertions;
 
 namespace MortgageQaAutomation.Tests;
 
-public class ApiSmokeTests
+public class PostTests
 {
     private readonly ApiClient _apiClient = new();
 
     [Fact]
-    public async Task Get_Post_By_Valid_Id_Should_Return_Ok()
+    public async Task Get_Post_By_Valid_Id_Should_Return_Valid_Post_Body()
     {
         var response = await _apiClient.GetPostByIdAsync(1);
 
@@ -21,10 +23,8 @@ public class ApiSmokeTests
         var post = await response.Content.ReadFromJsonAsync<PostResponse>();
 
         post.Should().NotBeNull();
+        PostAssertions.ShouldBeValidPost(post!);
         post!.Id.Should().Be(1);
-        post.UserId.Should().BeGreaterThan(0);
-        post.Title.Should().NotBeNullOrWhiteSpace();
-        post.Body.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -56,5 +56,15 @@ public class ApiSmokeTests
         createdPost.Body.Should().Be(request.Body);
         createdPost.UserId.Should().Be(request.UserId);
         createdPost.Id.Should().BeGreaterThan(0);
+    }
+    [Fact]
+    public async Task Get_Post_By_Valid_Id_Should_Return_Json_Content()
+    {
+        var response = await _apiClient.GetPostByIdAsync(1);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        response.Content.Headers.ContentType.Should().NotBeNull();
+        response.Content.Headers.ContentType!.MediaType.Should().Be("application/json");
     }
 } 
