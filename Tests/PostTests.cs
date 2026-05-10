@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using WebsiteApiQAAutomation.Assertions;
 using WebsiteApiQAAutomation.Base;
+using WebsiteApiQAAutomation.Logging;
 using WebsiteApiQAAutomation.Models;
 using WebsiteApiQAAutomation.TestData;
 using System.Net;
@@ -21,11 +22,20 @@ public class PostTests : BaseTest
     [Fact]
     public async Task Get_Post_By_Valid_Id_Should_Return_Valid_Post_Body()
     {
+        // Log test start
+        TestLogger.LogInfo("Starting valid post retrieval test.");
+
         // Send GET request for post ID 1
         var response = await ApiClient.GetPostByIdAsync(1);
 
-        // Validate status code, response body, and expected post ID
+        // Log received response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
+
+        // Validate successful response
         await ValidateSuccessfulPostResponse(response, 1);
+
+        // Log successful test completion
+        TestLogger.LogInfo("Valid post retrieval test completed successfully.");
     }
 
     /// <summary>
@@ -33,17 +43,26 @@ public class PostTests : BaseTest
     /// </summary>
     [Theory]
 
-    // Each InlineData value runs this test once with a different post ID
+    // Each InlineData value runs the same test with different post IDs
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
     public async Task Get_Post_By_Valid_Ids_Should_Return_Ok(int postId)
     {
-        // Send GET request using the current post ID
+        // Log current test execution
+        TestLogger.LogInfo($"Starting data-driven validation for post ID: {postId}");
+
+        // Send GET request using current post ID
         var response = await ApiClient.GetPostByIdAsync(postId);
 
-        // Validate status code, response body, and expected post ID
+        // Log response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
+
+        // Validate successful response
         await ValidateSuccessfulPostResponse(response, postId);
+
+        // Log successful validation
+        TestLogger.LogInfo($"Validation completed successfully for post ID: {postId}");
     }
 
     /// <summary>
@@ -52,11 +71,20 @@ public class PostTests : BaseTest
     [Fact]
     public async Task Get_Post_By_Invalid_Id_Should_Return_NotFound()
     {
-        // Send GET request using an invalid post ID
+        // Log test start
+        TestLogger.LogInfo("Starting invalid post ID validation test.");
+
+        // Send GET request using invalid post ID
         var response = await ApiClient.GetPostByIdAsync(999999);
+
+        // Log response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
 
         // Verify API returns HTTP 404 Not Found
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
+        // Log successful validation
+        TestLogger.LogInfo("Invalid post ID validation completed successfully.");
     }
 
     /// <summary>
@@ -65,8 +93,14 @@ public class PostTests : BaseTest
     [Fact]
     public async Task Get_Post_By_Valid_Id_Should_Return_Json_Content()
     {
+        // Log test start
+        TestLogger.LogInfo("Starting JSON content validation test.");
+
         // Send GET request for post ID 1
         var response = await ApiClient.GetPostByIdAsync(1);
+
+        // Log response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
 
         // Verify API returns HTTP 200 OK
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -74,23 +108,32 @@ public class PostTests : BaseTest
         // Verify content type header exists
         response.Content.Headers.ContentType.Should().NotBeNull();
 
-        // Verify response media type is JSON
+        // Verify API returned JSON content
         response.Content.Headers.ContentType!
             .MediaType.Should().Be("application/json");
+
+        // Log successful validation
+        TestLogger.LogInfo("JSON content validation completed successfully.");
     }
 
     /// <summary>
     /// Validates that creating a valid post returns HTTP 201
-    /// and response data matches the request data.
+    /// and response data matches request data.
     /// </summary>
     [Fact]
     public async Task Create_Post_With_Valid_Data_Should_Return_Created()
     {
+        // Log test start
+        TestLogger.LogInfo("Starting valid post creation test.");
+
         // Create reusable valid request data
         var request = PostRequestBuilder.CreateValidPostRequest();
 
-        // Send POST request with valid request body
+        // Send POST request using valid request body
         var response = await ApiClient.CreatePostAsync(request);
+
+        // Log response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
 
         // Verify API returns HTTP 201 Created
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -101,13 +144,16 @@ public class PostTests : BaseTest
         // Verify response body exists
         createdPost.Should().NotBeNull();
 
-        // Verify returned data matches request data
+        // Verify response data matches request data
         createdPost!.Title.Should().Be(request.Title);
         createdPost.Body.Should().Be(request.Body);
         createdPost.UserId.Should().Be(request.UserId);
 
-        // Verify API generated an ID
+        // Verify generated ID exists
         createdPost.Id.Should().BeGreaterThan(0);
+
+        // Log successful test completion
+        TestLogger.LogInfo("Valid post creation test completed successfully.");
     }
 
     /// <summary>
@@ -117,25 +163,34 @@ public class PostTests : BaseTest
     [Fact]
     public async Task Create_Post_With_Empty_Title_Should_Handle_Invalid_Request()
     {
+        // Log test start
+        TestLogger.LogInfo("Starting invalid post creation validation.");
+
         // Create reusable invalid request data
         var request = PostRequestBuilder.CreatePostRequestWithEmptyTitle();
 
-        // Send POST request with invalid request body
+        // Send POST request using invalid request body
         var response = await ApiClient.CreatePostAsync(request);
+
+        // Log response status code
+        TestLogger.LogInfo($"Received response status code: {response.StatusCode}");
 
         // Verify response exists
         response.Should().NotBeNull();
 
-        // Verify API does not return HTTP 500 Internal Server Error
+        // Verify API did not return HTTP 500 Internal Server Error
         response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
+
+        // Log successful validation
+        TestLogger.LogInfo("Invalid post validation completed successfully.");
     }
 
     /// <summary>
     /// Shared helper method for validating successful post responses.
-    /// Keeps repeated response validation in one place.
+    /// Centralizes reusable response validation logic.
     /// </summary>
     /// <param name="response">HTTP response returned from the API.</param>
-    /// <param name="expectedPostId">Expected post ID returned in the response body.</param>
+    /// <param name="expectedPostId">Expected post ID returned in response body.</param>
     private static async Task ValidateSuccessfulPostResponse(
         HttpResponseMessage response,
         int expectedPostId)
@@ -149,10 +204,10 @@ public class PostTests : BaseTest
         // Verify response body exists
         post.Should().NotBeNull();
 
-        // Verify returned ID matches expected ID
+        // Verify returned post ID matches expected post ID
         post!.Id.Should().Be(expectedPostId);
 
-        // Run reusable post response validation checks
+        // Run reusable validation checks
         PostAssertions.ShouldBeValidPost(post);
     }
 }
