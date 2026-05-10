@@ -109,4 +109,19 @@ namespace WebsiteApiQAAutomation.Tests;
         // Verify generated ID exists
         createdPost.Id.Should().BeGreaterThan(0);
     }
+    [Fact] // This test validates that creating a post with an empty title
+    public async Task Create_Post_With_Empty_Title_Should_Handle_Invalid_Request()
+    {
+        // Build invalid request data
+        var request = PostRequestBuilder.CreatePostRequestWithEmptyTitle();
+
+        // Send POST request
+        var response = await ApiClient.CreatePostAsync(request);
+
+        // Validate response exists
+        response.Should().NotBeNull();
+
+        // Validate API responded
+        response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
+    }
 }
