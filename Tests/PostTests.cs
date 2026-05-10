@@ -10,7 +10,7 @@ using Xunit;
 namespace WebsiteApiQAAutomation.Tests;
 
 /// <summary>
-/// Contains automated API tests for post endpoints.
+/// Contains automated API tests for post endpoints.Vernon was here! :D
 /// </summary>
 public class PostTests
 {
