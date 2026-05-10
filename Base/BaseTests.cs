@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebsiteApiQAAutomation.Clients;
+using WebsiteApiQAAutomation.Configuration;
+using WebsiteApiQAAutomation.Logging;
 
 namespace WebsiteApiQAAutomation.Base;
 
@@ -20,6 +22,8 @@ public abstract class BaseTest
 
     protected BaseTest()
     {
+        TestLogger.LogInfo($"Active test environment: {ConfigurationManager.GetEnvironmentName()}");
+
         ApiClient = new ApiClient();
     }
 }
