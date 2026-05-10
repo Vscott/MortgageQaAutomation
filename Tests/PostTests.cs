@@ -124,4 +124,38 @@ namespace WebsiteApiQAAutomation.Tests;
         // Validate API responded
         response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
     }
+    /// <summary>
+    /// Validates that multiple valid post IDs
+    /// return successful responses and valid response bodies.
+    /// 
+    /// [Theory] allows the same test to run multiple times
+    /// using different input values.
+    /// </summary>
+
+    [Theory]
+
+    // InlineData provides different post IDs to test
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    public async Task Get_Post_By_Valid_Ids_Should_Return_Ok(int postId)
+    {
+        // Send GET request using current post ID
+        var response = await ApiClient.GetPostByIdAsync(postId);
+
+        // Verify API returned HTTP 200 OK
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        // Deserialize JSON response into PostResponse model
+        var post = await response.Content.ReadFromJsonAsync<PostResponse>();
+
+        // Verify response body exists
+        post.Should().NotBeNull();
+
+        // Verify returned post ID matches requested ID
+        post!.Id.Should().Be(postId);
+
+        // Run reusable validation checks
+        PostAssertions.ShouldBeValidPost(post);
+    }
 }
