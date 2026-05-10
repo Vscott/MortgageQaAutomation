@@ -1,13 +1,13 @@
 ﻿using FluentAssertions;
-using MortgageQaAutomation.Assertions;
-using MortgageQaAutomation.Clients;
-using MortgageQaAutomation.Models;
-using MortgageQaAutomation.TestData;
+using WebsiteApiQAAutomation.Assertions;
+using WebsiteApiQAAutomation.Clients;
+using WebsiteApiQAAutomation.Models;
+using WebsiteApiQAAutomation.TestData;
 using System.Net;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace MortgageQaAutomation.Tests;
+namespace WebsiteApiQAAutomation.Tests;
 
 /// <summary>
 /// Contains automated API tests for post endpoints.

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using MortgageQaAutomation.Models;
+using WebsiteApiQAAutomation.Models;
 
-namespace MortgageQaAutomation.Assertions;
+namespace WebsiteApiQAAutomation.Assertions;
 
 /// <summary>
 /// Contains reusable assertions for validating post responses.

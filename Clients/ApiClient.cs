@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 
-namespace MortgageQaAutomation.Clients;
+namespace WebsiteApiQAAutomation.Clients;
 
 /// <summary>
 /// Handles API communication for the test framework.

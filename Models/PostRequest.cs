@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MortgageQaAutomation.Models;
+namespace WebsiteApiQAAutomation.Models;
 
 /// <summary>
 /// Represents the request body used when creating a post.

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37216.2 d17.14
+VisualStudioVersion = 17.14.37216.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MortgageQaAutomation", "MortgageQaAutomation.csproj", "{65B2CFAB-29BB-48BE-99F6-86FF4254F381}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteApiQAAutomation", "WebsiteApiQAAutomation.csproj", "{9BEE21DC-F036-973F-EF7B-47BBF4123FF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65B2CFAB-29BB-48BE-99F6-86FF4254F381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65B2CFAB-29BB-48BE-99F6-86FF4254F381}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65B2CFAB-29BB-48BE-99F6-86FF4254F381}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65B2CFAB-29BB-48BE-99F6-86FF4254F381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BEE21DC-F036-973F-EF7B-47BBF4123FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BEE21DC-F036-973F-EF7B-47BBF4123FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BEE21DC-F036-973F-EF7B-47BBF4123FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BEE21DC-F036-973F-EF7B-47BBF4123FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

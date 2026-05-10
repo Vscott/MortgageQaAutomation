@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MortgageQaAutomation.Models;
+namespace WebsiteApiQAAutomation.Models;
 
 /// <summary>
 /// Represents the API response body for a post.

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MortgageQaAutomation.Models;
+using WebsiteApiQAAutomation.Models;
 
-namespace MortgageQaAutomation.TestData;
+namespace WebsiteApiQAAutomation.TestData;
 
 /// <summary>
 /// Provides reusable test data objects.
