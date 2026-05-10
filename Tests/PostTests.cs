@@ -6,26 +6,27 @@ using WebsiteApiQAAutomation.TestData;
 using System.Net;
 using System.Net.Http.Json;
 using Xunit;
+using WebsiteApiQAAutomation.Base;
 
 namespace WebsiteApiQAAutomation.Tests;
 
 /// <summary>
 /// Contains automated API tests for post endpoints.Vernon was here! :D
 /// </summary>
-public class PostTests
-{
-    // Shared API client used by all tests
-    private readonly ApiClient _apiClient = new();
 
-    /// <summary>
-    /// Validates that retrieving a valid post ID
-    /// returns a valid response body.
-    /// </summary>
-    [Fact]
+    // Shared API client used by all tests
+    public class PostTests : BaseTest
+    {
+
+        /// <summary>
+        /// Validates that retrieving a valid post ID
+        /// returns a valid response body.
+        /// </summary>
+        [Fact]
     public async Task Get_Post_By_Valid_Id_Should_Return_Valid_Post_Body()
     {
         // Send GET request
-        var response = await _apiClient.GetPostByIdAsync(1);
+        var response = await ApiClient.GetPostByIdAsync(1);
 
         // Verify HTTP 200 OK
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -51,7 +52,7 @@ public class PostTests
     public async Task Get_Post_By_Invalid_Id_Should_Return_NotFound()
     {
         // Send GET request using invalid ID
-        var response = await _apiClient.GetPostByIdAsync(999999);
+        var response = await ApiClient.GetPostByIdAsync(999999);
 
         // Verify HTTP 404 response
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -65,7 +66,7 @@ public class PostTests
     public async Task Get_Post_By_Valid_Id_Should_Return_Json_Content()
     {
         // Send GET request
-        var response = await _apiClient.GetPostByIdAsync(1);
+        var response = await ApiClient.GetPostByIdAsync(1);
 
         // Verify HTTP 200 OK
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -89,7 +90,7 @@ public class PostTests
         var request = PostRequestBuilder.CreateValidPostRequest();
 
         // Send POST request
-        var response = await _apiClient.CreatePostAsync(request);
+        var response = await ApiClient.CreatePostAsync(request);
 
         // Verify HTTP 201 Created
         response.StatusCode.Should().Be(HttpStatusCode.Created);
