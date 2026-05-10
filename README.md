@@ -115,3 +115,4 @@ dotnet test
 # Disclaimer
 
 This project is intended for educational, portfolio, and personal development purposes.
+dream big, work hard, and keep learning!
