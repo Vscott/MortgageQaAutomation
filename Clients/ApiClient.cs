@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
+using WebsiteApiQAAutomation.Configuration;
 
 namespace WebsiteApiQAAutomation.Clients;
 
@@ -24,7 +25,7 @@ public class ApiClient
         _httpClient = new HttpClient
         {
             // Base URL for all requests
-            BaseAddress = new Uri("https://jsonplaceholder.typicode.com")
+            BaseAddress = new Uri(ConfigurationManager.GetBaseUrl())
         };
     }
 
