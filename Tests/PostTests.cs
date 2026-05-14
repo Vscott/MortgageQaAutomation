@@ -20,7 +20,7 @@ public class PostTests : BaseTest
     /// and a valid response body.
     /// </summary>
     [Fact]
-    public async Task Get_Post_By_Valid_Id_Should_Return_Valid_Post_Body()
+    public async Task Valid_Post_Request_Should_Return_Expected_Response_Data()
     {
         // Log test start
         TestLogger.LogInfo("Starting valid post retrieval test.");
@@ -47,7 +47,7 @@ public class PostTests : BaseTest
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
-    public async Task Get_Post_By_Valid_Ids_Should_Return_Ok(int postId)
+    public async Task Valid_Post_Requests_Should_Return_Consistent_Response_Data(int postId)
     {
         // Log current test execution
         TestLogger.LogInfo($"Starting data-driven validation for post ID: {postId}");
@@ -69,7 +69,7 @@ public class PostTests : BaseTest
     /// Validates that an invalid post ID returns HTTP 404 Not Found.
     /// </summary>
     [Fact]
-    public async Task Get_Post_By_Invalid_Id_Should_Return_NotFound()
+    public async Task Invalid_Post_Request_Should_Return_Not_Found_Response()
     {
         // Log test start
         TestLogger.LogInfo("Starting invalid post ID validation test.");
@@ -121,7 +121,7 @@ public class PostTests : BaseTest
     /// and response data matches request data.
     /// </summary>
     [Fact]
-    public async Task Create_Post_With_Valid_Data_Should_Return_Created()
+    public async Task Valid_Post_Creation_Request_Should_Return_Created_Response()
     {
         // Log test start
         TestLogger.LogInfo("Starting valid post creation test.");
@@ -161,7 +161,7 @@ public class PostTests : BaseTest
     /// does not cause a server error.
     /// </summary>
     [Fact]
-    public async Task Create_Post_With_Empty_Title_Should_Handle_Invalid_Request()
+    public async Task Invalid_Post_Creation_Request_Should_Not_Return_Server_Error()
     {
         // Log test start
         TestLogger.LogInfo("Starting invalid post creation validation.");
